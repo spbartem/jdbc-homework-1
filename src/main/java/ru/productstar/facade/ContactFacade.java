@@ -3,7 +3,6 @@ package ru.productstar.facade;
 import org.springframework.stereotype.Service;
 import ru.productstar.dao.ContactDao;
 import ru.productstar.dao.dto.ContactDto;
-import ru.productstar.model.Contact;
 
 import java.util.Collection;
 

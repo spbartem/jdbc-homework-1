@@ -8,8 +8,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import ru.productstar.model.Contact;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ContactDao {
 
@@ -17,7 +16,7 @@ public class ContactDao {
 
     private static final String GET_CONTACT_BY_ID_SQL = GET_ALL_CONTACTS_SQL + " WHERE ID = :id";
 
-    private static final String SAVE_CONTACT_SQL = "INSERT INTO CONTACT (NAME, SURNAME, EMAIL, PHONE_NUMBER)" +
+    private static final String SAVE_CONTACT_SQL = "INSERT INTO CONTACT (NAME, SURNAME, EMAIL, PHONE_NUMBER) " +
             "VALUES (:name, :surname, :email, :phoneNumber)";
 
     private static final String UPDATE_EMAIL_SQL = "UPDATE CONTACT SET EMAIL = :email WHERE ID = :id";
@@ -39,6 +38,10 @@ public class ContactDao {
 
     public ContactDao(NamedParameterJdbcTemplate namedJdbcTemplate) {
         this.namedJdbcTemplate = namedJdbcTemplate;
+    }
+
+    public void saveAll(Collection<Contact> contacts) {
+        // TODO Implement me!
     }
 
     public List<Contact> getAllContacts() {

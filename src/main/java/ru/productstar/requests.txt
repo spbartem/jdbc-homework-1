@@ -1,0 +1,8 @@
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "firstName=Иван&lastName=Иванов&phoneNumber="79111111111"&email=iivanov@mail.ru" http://localhost:8080/contacts | json_pp
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "firstName=Пётр&lastName=Петров&phoneNumber="79111111112"&email=ppetrov@mail.ru" http://localhost:8080/contacts | json_pp
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "firstName=Маша&lastName=Машина&phoneNumber="79111111113"&email=mmasina@mail.ru" http://localhost:8080/contacts | json_pp
+
+curl -X PUT -H "Content-Type: application/json; charset=UTF-8" --data '{"contactId":1,"firstName":"Иван", "lastName":"Иванов", "phoneNumber":"+791111111112", "email":"iivanov@gmail.com"}' http://localhost:8080/contacts/1
+
+curl http://localhost:8080/contacts/1 | json_pp
+

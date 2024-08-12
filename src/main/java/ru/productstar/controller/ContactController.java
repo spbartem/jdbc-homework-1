@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.productstar.dao.dto.ContactDto;
 import ru.productstar.facade.ContactFacade;
-import ru.productstar.model.Contact;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/contacts")
