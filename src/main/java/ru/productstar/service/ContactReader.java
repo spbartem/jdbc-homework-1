@@ -1,13 +1,14 @@
 package ru.productstar.service;
 
+import org.springframework.stereotype.Service;
 import ru.productstar.model.Contact;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+@Service
 public class ContactReader {
 
     public List<Contact> readFromFile(Path filePath) {
@@ -25,7 +26,7 @@ public class ContactReader {
                         fields[3]);
                 contacts.add(contact);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return contacts;

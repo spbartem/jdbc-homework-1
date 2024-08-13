@@ -1,7 +1,7 @@
 package ru.productstar.facade;
 
 import org.springframework.stereotype.Service;
-import ru.productstar.dao.ContactDao;
+import ru.productstar.dao.NamedJdbcContactDao;
 import ru.productstar.dao.dto.ContactDto;
 
 import java.util.Collection;
@@ -9,9 +9,9 @@ import java.util.Collection;
 @Service
 public class ContactFacade {
 
-    private final ContactDao contactDao;
+    private final NamedJdbcContactDao contactDao;
 
-    public ContactFacade(ContactDao contactDao) {
+    public ContactFacade(NamedJdbcContactDao contactDao) {
         this.contactDao = contactDao;
     }
 

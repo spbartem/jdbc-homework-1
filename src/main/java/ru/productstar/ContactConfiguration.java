@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import ru.productstar.common.JdbcConfig;
 import ru.productstar.common.PropertiesConfiguration;
-import ru.productstar.dao.ContactDao;
+import ru.productstar.dao.NamedJdbcContactDao;
 import ru.productstar.service.ContactReader;
 import ru.productstar.service.ContactService;
 
@@ -23,8 +23,8 @@ public class ContactConfiguration {
     }
 
     @Bean
-    public ContactDao contactDao() {
-        return new ContactDao(namedParameterJdbcTemplate);
+    public NamedJdbcContactDao contactDao() {
+        return new NamedJdbcContactDao(namedParameterJdbcTemplate);
     }
 
     @Bean
