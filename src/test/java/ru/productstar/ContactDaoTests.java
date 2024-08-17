@@ -1,5 +1,6 @@
 package ru.productstar;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.productstar.dao.NamedJdbcContactDao;
+import ru.productstar.exception.EntityNotFoundException;
 import ru.productstar.model.Contact;
+import ru.productstar.service.ContactService;
 
+import java.nio.file.Path;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,8 +29,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = ContactConfiguration.class)
-@Sql("classpath:contact.sql")
-public record ContactDaoTests(@Autowired NamedJdbcContactDao contactDao) {
+// @Sql("classpath:contact.sql")
+public record ContactDaoTests(@Autowired NamedJdbcContactDao contactDao,
+                              @Autowired ContactService contactService) {
 
     private static final Contact IVAN = new Contact(
             1000L, "Ivan", "Ivanov", "iivanov@gmail.com", "1234567"
@@ -36,10 +41,39 @@ public record ContactDaoTests(@Autowired NamedJdbcContactDao contactDao) {
             2000L, "Maria", "Ivanova", "mivanova@gmail.com", "7654321"
     );
 
+    private static final Contact PETR = new Contact(
+            1L,"Пётр", "Петров", "ppetrov@gmail.com", "+70987654321"
+    );
+
+    private static final Contact JOHN = new Contact(
+            2L, "Джон", "Смидт", "jsmith@gmail.com", "+11234567890"
+    );
+
+    private static final Contact SEMION = new Contact(
+            3L,"Семён", "Семёнов", "ssemenov@gmail.com", "+71234567890"
+    );
+
+    private static final Contact NOT_FOUND = new Contact(
+            1L, "Not found", "Not found", "Not found", "Not found");
+
     /**
      * There are two contacts inserted in the database in contact.sql.
+     * There are three contacts inserted in the database from contacts.csv.
      */
-    private static final List<Contact> PERSISTED_CONTACTS = List.of(IVAN, MARIA);
+    private static final List<Contact> PERSISTED_CONTACTS = List.of(PETR, JOHN, SEMION);
+
+    @BeforeEach
+    void setUp() {
+        contactDao.deleteAllContacts();
+        contactDao.setInitialValueForSequence("contact_id_seq", 1);
+    }
+
+    @Test
+    void saveContacts() {
+        contactService.saveContacts(Path.of("src/main/resources/contacts.csv"));
+        var contacts = contactDao.getAllContacts();
+        assertThat(contacts).containsAll(PERSISTED_CONTACTS);
+    }
 
     @Test
     void addContact() {
@@ -54,12 +88,14 @@ public record ContactDaoTests(@Autowired NamedJdbcContactDao contactDao) {
 
     @Test
     void getContact() {
-        var contact = contactDao.getContact(IVAN.getId());
-        assertThat(contact).isEqualTo(IVAN);
+        contactService.saveContacts(Path.of("src/main/resources/contacts.csv"));
+        var contact = contactDao.getContact(PETR.getId());
+        assertThat(contact).isEqualTo(PETR);
     }
 
     @Test
     void getAllContacts() {
+        contactService.saveContacts(Path.of("src/main/resources/contacts.csv"));
         var contacts = contactDao.getAllContacts();
 
         assertThat(contacts).containsAll(PERSISTED_CONTACTS);
@@ -90,14 +126,16 @@ public record ContactDaoTests(@Autowired NamedJdbcContactDao contactDao) {
     }
 
     @Test
-    void deleteContact() {
+    void deleteContact() throws EntityNotFoundException {
         var contact = new Contact("To be", "Deleted", "", "");
         var contactId = contactDao.saveContact(contact);
 
         contactDao.deleteContact(contactId);
 
-        assertThatThrownBy(() -> contactDao.getContact(contactId))
-                .isInstanceOf(EmptyResultDataAccessException.class);
+        var deletedContact = contactDao.getContact(contactId);
+        assertThat(deletedContact).isEqualTo(NOT_FOUND);
 
+//        assertThatThrownBy(() -> contactDao.getContact(contactId))
+//                .isInstanceOf(EmptyResultDataAccessException.class);
     }
 }

@@ -16,7 +16,6 @@ public class ContactFacade {
     }
 
     public ContactDto getContact(long contactId) {
-
         var contact = contactDao.getContact(contactId);
         return new ContactDto(contact);
     }

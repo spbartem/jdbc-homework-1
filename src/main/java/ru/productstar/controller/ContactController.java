@@ -6,7 +6,6 @@ import ru.productstar.dao.dto.ContactDto;
 import ru.productstar.facade.ContactFacade;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/contacts")

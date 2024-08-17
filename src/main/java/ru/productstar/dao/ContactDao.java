@@ -1,9 +1,9 @@
 package ru.productstar.dao;
 
+import ru.productstar.exception.EntityNotFoundException;
 import ru.productstar.model.Contact;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public interface ContactDao {
 
@@ -13,7 +13,7 @@ public interface ContactDao {
     Contact getContact(long contactId);
     List<Contact> getAllContacts();
 
-    void deleteContact(long contactId);
+    void deleteContact(long contactId) throws EntityNotFoundException;
     void deleteAllContacts();
 
     void updatePhoneNumber(long contactId, String phoneNumber);

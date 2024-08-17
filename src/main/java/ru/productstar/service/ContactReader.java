@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class ContactReader {
-
     public List<Contact> readFromFile(Path filePath) {
         List<Contact> contacts = new ArrayList<>();
         String delimiter = ",";

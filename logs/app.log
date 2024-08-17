@@ -1,0 +1,10 @@
+2024-08-17 20:58:14 INFO  r.p.dao.NamedJdbcContactDao - Setting initial value for sequence contact_id_seq: 1
+2024-08-17 20:58:15 INFO  r.p.dao.NamedJdbcContactDao - All contacts from the CONTACTS table have been deleted.
+2024-08-17 20:58:15 INFO  r.productstar.service.ContactService - Importing contacts from src/main/resources/contacts.csv
+2024-08-17 20:58:15 INFO  r.productstar.service.ContactService - Contacts has been imported successfully, count: 3
+2024-08-17 20:58:15 INFO  r.p.dao.NamedJdbcContactDao - Saving all contacts: [Contact{id=null, name='Пётр', surname='Петров', email='ppetrov@gmail.com', phone='+70987654321'}, Contact{id=null, name='Джон', surname='Смидт', email='jsmith@gmail.com', phone='+11234567890'}, Contact{id=null, name='Семён', surname='Семёнов', email='ssemenov@gmail.com', phone='+71234567890'}]
+2024-08-17 20:58:15 INFO  r.p.dao.NamedJdbcContactDao - All contacts (3) have been saved successfully
+2024-08-17 20:58:15 INFO  r.p.dao.NamedJdbcContactDao - For the contact with the Id 1, the phone number has been updated from +70987654321 to +79119110011
+2024-08-17 20:58:15 INFO  r.p.dao.NamedJdbcContactDao - For the contact with the Id 1, the email has been updated from ppetrov@gmail.com to petr_petrov@gmail.com
+2024-08-17 20:58:15 INFO  r.p.dao.NamedJdbcContactDao - Saving contact: Contact{id=null, name='Steven', surname='King', email='kingofhorror@gmail.com', phone='+155512345666'}
+2024-08-17 20:58:15 INFO  r.p.dao.NamedJdbcContactDao - Contact saved with ID: 4
